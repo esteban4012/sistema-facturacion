@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Factura</title>
+    <link rel="stylesheet" href="{% static 'factura/crear_factura.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Editar Factura</h1>
+        <a href="{% url 'lista_facturas' %}" class="btn-lista-facturas">Ver Lista de Facturas</a>
+        <form method="post" id="editar-factura-form">
+            {% csrf_token %}
+            <div>
+                <h3>Detalles de la Factura</h3>
+                {{ factura_form.as_p }}
+            </div>
+        
+            <div>
+                <h3>Artículos</h3>
+                {{ articulo_formset.management_form }}
+                <div class="items-container">
+                    {% for form in articulo_formset %}
+                        <div class="item-row">
+                            {{ form.as_p }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="add-item-btn">
+                <button type="button" onclick="addItem()">Agregar Artículo</button>
+            </div>
+        
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>
+
+    <script src="{% static 'factura/editar_factura.js' %}"></script>
+</body>
+</html>

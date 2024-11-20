@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Facturas</title>
+    <link rel="stylesheet" href="{% static 'factura/lista_factura.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Lista de Facturas</h1>
+            <a href="{% url 'crear_factura' %}" class="btn-crear">+ Crear Nueva Factura</a>
+        </header>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th># Factura</th>
+                        <th>Cliente</th>
+                        <th>Documento</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                    <tr>
+                        <td>{{ factura.id }}</td>
+                        <td>{{ factura.cliente }}</td>
+                        <td>{{ factura.numero_id }}</td>
+                        <td>${{ factura.total_factura }}</td>
+                        <td class="acciones">
+                            <a href="{% url 'ver_factura' factura.id %}" class="btn btn-ver">Ver</a>
+                            <a href="{% url 'editar_factura' factura.id %}" class="btn btn-editar">Editar</a>
+                            <form action="{% url 'eliminar_factura' factura.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-eliminar" 
+                                        onclick="return confirm('¿Estás seguro de que quieres eliminar esta factura?');">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No hay facturas disponibles</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Factura</title>
+    <link rel="stylesheet" href="{% static 'factura/ver_factura.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles de la Factura #{{ factura.id }}</h1>
+        
+        <div class="factura-info">
+            <p><strong>Fecha de creación:</strong> {{ factura.fecha_creacion }}</p>
+            <p><strong>Cliente:</strong> {{ factura.cliente }}</p>
+            <p><strong>Documento de identidad:</strong> {{ factura.numero_id }}</p>
+            <p><strong>Dirección:</strong> {{ factura.direccion }}</p>
+            <p><strong>Email:</strong> {{ factura.email }}</p>
+            <p><strong>Teléfono:</strong> {{ factura.telefono }}</p>
+            
+        </div>
+        
+        <h2>Artículos en la Factura</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Valor Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for articulo in articulos %}
+                <tr>
+                    <td>{{ articulo.descripcion }}</td>
+                    <td>{{ articulo.cantidad }}</td>
+                    <td>${{ articulo.valor_unitario }}</td>
+                    <td>${{ articulo.subtotal }}</td>
+                    
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No hay artículos en esta factura.</td>
+                </tr>
+                {% endfor %}
+                <td><strong>Total de la factura:</strong> ${{ factura.total_factura }}</td>
+            </tbody>
+        </table>
+
+        <div class="back-button">
+            <a href="{% url 'lista_facturas' %}" class="btn-volver">Volver a la lista de facturas</a>
+        </div>
+    </div>
+</body>
+</html>
