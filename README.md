@@ -22,6 +22,7 @@ Si aún no tienes el código de la aplicación, puedes clonarlo desde GitHub usa
 bash
 
 git clone <https://github.com/esteban4012/sistema-facturacion.git>
+
 cd <sistema-facturacion>
 
 2. Construir y levantar los contenedores
