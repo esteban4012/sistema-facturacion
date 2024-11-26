@@ -1,0 +1,30 @@
+version: '3'
+services:
+  web:
+    build: 
+      context: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com
+      - DJANGO_SUPERUSER_PASSWORD=admin123
+  
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=facturas
+      - POSTGRES_USER=usuario123
+      - POSTGRES_PASSWORD=usuario123 
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/postgres_data
+
+volumes:
+  postgres_data:
