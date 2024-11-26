@@ -23,7 +23,7 @@ bash
 
 git clone <https://github.com/esteban4012/sistema-facturacion.git>
 
-cd <sistema-facturacion>
+cd sistema-facturacion/
 
 2. Construir y levantar los contenedores
 Una vez que tengas el proyecto, navega a la raíz del proyecto en tu terminal (si no estás ya allí). Luego, ejecuta el siguiente comando para construir la imagen de Docker y levantar los contenedores:
